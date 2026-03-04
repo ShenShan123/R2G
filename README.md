@@ -1,4 +1,4 @@
-# <img src="figs/R2G.png" width="40" alt="R2G Logo">: A Multi-View Circuit Graph Benchmark Suite from RTL to GDSII
+# R2G: A Multi-View Circuit Graph Benchmark Suite from RTL to GDSII
 
 [![CVPR 2026](https://img.shields.io/badge/CVPR-2026-blue)](https://cvf.openaccess.thewebconference.com/content/CVPR2026)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -270,7 +270,6 @@ R2G/
 ├── requirements.txt                # Python dependencies
 ├── EDA_Data_Extractor.py          # EDA data extraction tool
 ├── figs/                          # Figures and diagrams
-│   ├── R2G.png                   # R2G logo
 │   ├── prefect_intro.png          # Dataset evolution diagram
 │   └── pipeline_overview.png      # Data generation pipeline
 ├── data_pipeline/                  # Data generation pipeline
