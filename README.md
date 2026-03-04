@@ -266,6 +266,7 @@ print(f"MAE: {mae:.4f}, RMSE: {rmse:.4f}, R²: {r2:.4f}")
 ```
 R2G/
 ├── README.md                       # This file
+├── LICENSE                         # MIT License
 ├── requirements.txt                # Python dependencies
 ├── EDA_Data_Extractor.py          # EDA data extraction tool
 ├── figs/                          # Figures and diagrams
@@ -291,6 +292,10 @@ R2G/
 │   │   │   └── place_hetero_to_homo_converter.py
 │   │   └── routing_v1.3/
 │   │       └── route_hetero_to_homo_converter.py
+│   ├── graph_validation/          # Graph quality checks
+│   │   ├── check_heterograph.py   # Validate heterographs
+│   │   ├── check_homographs.py    # Validate homographs
+│   │   └── compare_graphs.py      # Compare graph views
 │   └── graph_merging/             # Graph merging across designs
 │       ├── placement_homo/
 │       │   ├── instruction.txt               # Usage instructions
@@ -316,7 +321,7 @@ R2G/
     ├── dataset.py
     ├── encoders.py
     ├── sampling.py
-    └── downstream_train.py
+    └── downstream_train.py       # Training loop
 ```
 
 ---
