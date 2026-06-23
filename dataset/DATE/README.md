@@ -43,6 +43,7 @@ and byte sizes.
 
 The binary graph artifacts are distributed as release assets:
 
+- Hugging Face Dataset: <https://huggingface.co/datasets/yangaonjust/R2G>
 - Release page: <https://github.com/ShenShan123/R2G/releases/tag/date-graph-dataset-v1.0>
 
 - `r2g-date-placement-heterogeneous-graphs.tar.gz`
