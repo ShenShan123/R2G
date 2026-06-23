@@ -307,6 +307,8 @@ R2G/
 ├── data_sources/                  # Raw data sources
 │   ├── placement_def/            # Placement DEF files
 │   └── routing_def/              # Routing DEF files
+├── dataset/                       # Ready-to-train graph dataset index
+│   └── DATE/                     # Placement/routing graph artifacts
 ├── gnn-node/                     # Node-level task training
 │   ├── main.py                   # Entry point (task_level=node)
 │   ├── model.py                  # GNN models
