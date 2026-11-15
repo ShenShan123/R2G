@@ -5,7 +5,7 @@
 数据不作为155GiB普通Git文件提交；完整内容压缩为小于2GiB的分卷附件，保存在本仓库对应Release。`dataset_release_manifest.json`记录每卷字节数和SHA256，以及拼接压缩流的SHA256。所有分卷均下载校验成功后方可解压。
 
 ```bash
-# 从顶层R2G300_Multiview_Benchmark目录执行
+# 从顶层R2G2.0目录执行
 python dataset/download_dataset.py --extract
 ```
 

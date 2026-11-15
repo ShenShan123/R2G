@@ -1,4 +1,6 @@
-# R2G-300：数据集与六模型Baseline
+# R2G2.0：多视图数据集与六模型Baseline
+
+**版本：R2G2.0。** 数据仍为R2G_multiview_v3_dataset，原实验批次及指标口径保持原样。
 
 此目录统一提供300个设计实例的五视图物理设计图数据，以及线长/拥塞两任务、六模型、placement/route两阶段的baseline代码与实验结果。
 
