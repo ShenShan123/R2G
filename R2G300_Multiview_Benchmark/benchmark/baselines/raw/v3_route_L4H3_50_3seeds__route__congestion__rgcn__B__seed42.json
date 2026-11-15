@@ -1,0 +1,1345 @@
+{
+  "schema": "r2g2_training_results_v2",
+  "status": "complete",
+  "config": {
+    "stage": "route",
+    "view": "B",
+    "graph_path": [],
+    "data_root": [
+      "/data/R2G_multiview_v3_dataset"
+    ],
+    "task": "congestion",
+    "model": "rgcn",
+    "include_geometry_edges": false,
+    "edge_pair_mode": "directed",
+    "deduplicate_undirected_targets": false,
+    "cc_dynamic_pair_geometry": false,
+    "inspect_only": false,
+    "smoke_test": false,
+    "smoke_max_nodes_per_type": 512,
+    "smoke_seed_targets": 256,
+    "hidden_dim": 64,
+    "num_layers": 4,
+    "num_head_layers": 3,
+    "heads": 4,
+    "num_bases": 4,
+    "dropout": 0.1,
+    "feature_transform": "signed_log1p",
+    "epochs": 50,
+    "patience": 50,
+    "test_every": 0,
+    "lr": 0.001,
+    "weight_decay": 1e-05,
+    "loss": "smooth_l1",
+    "target_transform_override": "native",
+    "max_targets_per_design": 0,
+    "train_max_targets_per_design": 0,
+    "target_sampling": "uniform",
+    "irdrop_quantile_weighting": false,
+    "shuffle_train_designs": false,
+    "scheduler_factor": 0.0,
+    "scheduler_patience": 8,
+    "min_lr": 1e-06,
+    "checkpoint_metric": "loss",
+    "target_chunk_size": 65536,
+    "seed": 42,
+    "split_seed": 42,
+    "device": "cuda:0",
+    "output_dir": "/data1/zhouzw/CVPR_modelR2G2.0/training_projects/here_model/Result/multiview_v3_route_L4H3_50ep_seed42_20260920/runs",
+    "run_name": "rgcn_B_congestion_route_L4H3_seed42"
+  },
+  "input_structure": {
+    "B": {
+      "record_count": 300,
+      "representative": {
+        "path": "/data/R2G_multiview_v3_dataset/samples/ac97_ctrl/v01/route/B/heterograph.pt",
+        "view": "B",
+        "stage": "route",
+        "nodes": {
+          "gate": {
+            "count": 10126,
+            "x_dim": 30,
+            "y_schema": [
+              "cell_congestion",
+              "ir_drop_mV"
+            ]
+          },
+          "net": {
+            "count": 12529,
+            "x_dim": 28,
+            "y_schema": [
+              "routed_wirelength_um",
+              "ground_cap_pF"
+            ]
+          },
+          "io_pin": {
+            "count": 132,
+            "x_dim": 30,
+            "y_schema": [
+              "setup_slack_ns",
+              "hold_slack_ns"
+            ]
+          },
+          "pin": {
+            "count": 35036,
+            "x_dim": 37,
+            "y_schema": [
+              "setup_slack_ns",
+              "hold_slack_ns"
+            ]
+          }
+        },
+        "edges": {
+          "gate|has|pin": {
+            "count": 35036,
+            "edge_attr_dim": 2,
+            "edge_y_schema": [],
+            "has_entity_weight": false
+          },
+          "pin|connects_to|net": {
+            "count": 35036,
+            "edge_attr_dim": 2,
+            "edge_y_schema": [],
+            "has_entity_weight": false
+          },
+          "io_pin|connects_to|net": {
+            "count": 132,
+            "edge_attr_dim": 2,
+            "edge_y_schema": [],
+            "has_entity_weight": false
+          },
+          "pin|timing_path|pin": {
+            "count": 9994,
+            "edge_attr_dim": 0,
+            "edge_y_schema": [
+              "setup_delay_ns",
+              "hold_delay_ns"
+            ],
+            "has_entity_weight": false
+          },
+          "pin|timing_path|io_pin": {
+            "count": 46,
+            "edge_attr_dim": 0,
+            "edge_y_schema": [
+              "setup_delay_ns",
+              "hold_delay_ns"
+            ],
+            "has_entity_weight": false
+          },
+          "io_pin|timing_path|pin": {
+            "count": 268,
+            "edge_attr_dim": 0,
+            "edge_y_schema": [
+              "setup_delay_ns",
+              "hold_delay_ns"
+            ],
+            "has_entity_weight": false
+          },
+          "net|rc_coupling|net": {
+            "count": 97692,
+            "edge_attr_dim": 0,
+            "edge_y_schema": [
+              "coupling_cap_pF"
+            ],
+            "has_entity_weight": false
+          },
+          "pin|rc_resistance|pin": {
+            "count": 20090,
+            "edge_attr_dim": 0,
+            "edge_y_schema": [
+              "effective_resistance_ohm"
+            ],
+            "has_entity_weight": false
+          },
+          "pin|rc_resistance|io_pin": {
+            "count": 1,
+            "edge_attr_dim": 0,
+            "edge_y_schema": [
+              "effective_resistance_ohm"
+            ],
+            "has_entity_weight": false
+          },
+          "io_pin|rc_resistance|pin": {
+            "count": 3,
+            "edge_attr_dim": 0,
+            "edge_y_schema": [
+              "effective_resistance_ohm"
+            ],
+            "has_entity_weight": false
+          },
+          "gate|congestion_geom|gate": {
+            "count": 29968,
+            "edge_attr_dim": 1,
+            "edge_y_schema": [],
+            "has_entity_weight": false
+          }
+        },
+        "message_edge_types": [
+          "gate|has|pin",
+          "pin|connects_to|net",
+          "io_pin|connects_to|net"
+        ],
+        "optional_message_edge_types": [
+          "gate|congestion_geom|gate"
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "mode": "formal_design_family_split",
+    "view": "B",
+    "stage": "route",
+    "task": "congestion",
+    "parameter_count": 133282,
+    "split": {
+      "summary": {
+        "train": {
+          "record_count": 240,
+          "family_count": 24,
+          "families": [
+            "ac97_ctrl",
+            "aes",
+            "aes_secworks",
+            "aes_xcrypt",
+            "bp_multi_top",
+            "des",
+            "dynamic_node",
+            "fifo",
+            "fir",
+            "ibex",
+            "jpeg",
+            "mem_ctrl",
+            "riscv32i",
+            "sasc_top",
+            "sha256",
+            "simple_spi_top",
+            "ss_pcm",
+            "swerv",
+            "tv80",
+            "uart",
+            "usb_phy",
+            "vga_enh_top",
+            "wb_conmax",
+            "wb_dma_top"
+          ]
+        },
+        "val": {
+          "record_count": 30,
+          "family_count": 3,
+          "families": [
+            "i2c_verilog",
+            "pci",
+            "spi_top"
+          ]
+        },
+        "test": {
+          "record_count": 30,
+          "family_count": 3,
+          "families": [
+            "des3_area",
+            "tinyRocket",
+            "usbf_top"
+          ]
+        },
+        "discovered_record_count": 300,
+        "skipped_no_target": {
+          "train": {
+            "record_count": 0,
+            "sample_ids": []
+          },
+          "val": {
+            "record_count": 0,
+            "sample_ids": []
+          },
+          "test": {
+            "record_count": 0,
+            "sample_ids": []
+          }
+        }
+      },
+      "sample_ids": {
+        "train": [
+          "ac97_ctrl__v01/route/B",
+          "ac97_ctrl__v02/route/B",
+          "ac97_ctrl__v03/route/B",
+          "ac97_ctrl__v04/route/B",
+          "ac97_ctrl__v05/route/B",
+          "ac97_ctrl__v06/route/B",
+          "ac97_ctrl__v07/route/B",
+          "ac97_ctrl__v08/route/B",
+          "ac97_ctrl__v09/route/B",
+          "ac97_ctrl__v10/route/B",
+          "aes__v01/route/B",
+          "aes__v02/route/B",
+          "aes__v03/route/B",
+          "aes__v04/route/B",
+          "aes__v05/route/B",
+          "aes__v06/route/B",
+          "aes__v07/route/B",
+          "aes__v08/route/B",
+          "aes__v09/route/B",
+          "aes__v10/route/B",
+          "aes_secworks__v01/route/B",
+          "aes_secworks__v02/route/B",
+          "aes_secworks__v03/route/B",
+          "aes_secworks__v04/route/B",
+          "aes_secworks__v05/route/B",
+          "aes_secworks__v06/route/B",
+          "aes_secworks__v07/route/B",
+          "aes_secworks__v08/route/B",
+          "aes_secworks__v09/route/B",
+          "aes_secworks__v10/route/B",
+          "aes_xcrypt__v01/route/B",
+          "aes_xcrypt__v02/route/B",
+          "aes_xcrypt__v03/route/B",
+          "aes_xcrypt__v04/route/B",
+          "aes_xcrypt__v05/route/B",
+          "aes_xcrypt__v06/route/B",
+          "aes_xcrypt__v07/route/B",
+          "aes_xcrypt__v08/route/B",
+          "aes_xcrypt__v09/route/B",
+          "aes_xcrypt__v10/route/B",
+          "bp_multi_top__v01/route/B",
+          "bp_multi_top__v02/route/B",
+          "bp_multi_top__v03/route/B",
+          "bp_multi_top__v04/route/B",
+          "bp_multi_top__v05/route/B",
+          "bp_multi_top__v06/route/B",
+          "bp_multi_top__v07/route/B",
+          "bp_multi_top__v08/route/B",
+          "bp_multi_top__v09/route/B",
+          "bp_multi_top__v10/route/B",
+          "des__v01/route/B",
+          "des__v02/route/B",
+          "des__v03/route/B",
+          "des__v04/route/B",
+          "des__v05/route/B",
+          "des__v06/route/B",
+          "des__v07/route/B",
+          "des__v08/route/B",
+          "des__v09/route/B",
+          "des__v10/route/B",
+          "dynamic_node__v01/route/B",
+          "dynamic_node__v02/route/B",
+          "dynamic_node__v03/route/B",
+          "dynamic_node__v04/route/B",
+          "dynamic_node__v05/route/B",
+          "dynamic_node__v06/route/B",
+          "dynamic_node__v07/route/B",
+          "dynamic_node__v08/route/B",
+          "dynamic_node__v09/route/B",
+          "dynamic_node__v10/route/B",
+          "fifo__v01/route/B",
+          "fifo__v02/route/B",
+          "fifo__v03/route/B",
+          "fifo__v04/route/B",
+          "fifo__v05/route/B",
+          "fifo__v06/route/B",
+          "fifo__v07/route/B",
+          "fifo__v08/route/B",
+          "fifo__v09/route/B",
+          "fifo__v10/route/B",
+          "fir__v01/route/B",
+          "fir__v02/route/B",
+          "fir__v03/route/B",
+          "fir__v04/route/B",
+          "fir__v05/route/B",
+          "fir__v06/route/B",
+          "fir__v07/route/B",
+          "fir__v08/route/B",
+          "fir__v09/route/B",
+          "fir__v10/route/B",
+          "ibex__v01/route/B",
+          "ibex__v02/route/B",
+          "ibex__v03/route/B",
+          "ibex__v04/route/B",
+          "ibex__v05/route/B",
+          "ibex__v06/route/B",
+          "ibex__v07/route/B",
+          "ibex__v08/route/B",
+          "ibex__v09/route/B",
+          "ibex__v10/route/B",
+          "jpeg__v01/route/B",
+          "jpeg__v02/route/B",
+          "jpeg__v03/route/B",
+          "jpeg__v04/route/B",
+          "jpeg__v05/route/B",
+          "jpeg__v06/route/B",
+          "jpeg__v07/route/B",
+          "jpeg__v08/route/B",
+          "jpeg__v09/route/B",
+          "jpeg__v10/route/B",
+          "mem_ctrl__v01/route/B",
+          "mem_ctrl__v02/route/B",
+          "mem_ctrl__v03/route/B",
+          "mem_ctrl__v04/route/B",
+          "mem_ctrl__v05/route/B",
+          "mem_ctrl__v06/route/B",
+          "mem_ctrl__v07/route/B",
+          "mem_ctrl__v08/route/B",
+          "mem_ctrl__v09/route/B",
+          "mem_ctrl__v10/route/B",
+          "riscv32i__v01/route/B",
+          "riscv32i__v02/route/B",
+          "riscv32i__v03/route/B",
+          "riscv32i__v04/route/B",
+          "riscv32i__v05/route/B",
+          "riscv32i__v06/route/B",
+          "riscv32i__v07/route/B",
+          "riscv32i__v08/route/B",
+          "riscv32i__v09/route/B",
+          "riscv32i__v10/route/B",
+          "sasc_top__v01/route/B",
+          "sasc_top__v02/route/B",
+          "sasc_top__v03/route/B",
+          "sasc_top__v04/route/B",
+          "sasc_top__v05/route/B",
+          "sasc_top__v06/route/B",
+          "sasc_top__v07/route/B",
+          "sasc_top__v08/route/B",
+          "sasc_top__v09/route/B",
+          "sasc_top__v10/route/B",
+          "sha256__v01/route/B",
+          "sha256__v02/route/B",
+          "sha256__v03/route/B",
+          "sha256__v04/route/B",
+          "sha256__v05/route/B",
+          "sha256__v06/route/B",
+          "sha256__v07/route/B",
+          "sha256__v08/route/B",
+          "sha256__v09/route/B",
+          "sha256__v10/route/B",
+          "simple_spi_top__v01/route/B",
+          "simple_spi_top__v02/route/B",
+          "simple_spi_top__v03/route/B",
+          "simple_spi_top__v04/route/B",
+          "simple_spi_top__v05/route/B",
+          "simple_spi_top__v06/route/B",
+          "simple_spi_top__v07/route/B",
+          "simple_spi_top__v08/route/B",
+          "simple_spi_top__v09/route/B",
+          "simple_spi_top__v10/route/B",
+          "ss_pcm__v01/route/B",
+          "ss_pcm__v02/route/B",
+          "ss_pcm__v03/route/B",
+          "ss_pcm__v04/route/B",
+          "ss_pcm__v05/route/B",
+          "ss_pcm__v06/route/B",
+          "ss_pcm__v07/route/B",
+          "ss_pcm__v08/route/B",
+          "ss_pcm__v09/route/B",
+          "ss_pcm__v10/route/B",
+          "swerv__v01/route/B",
+          "swerv__v02/route/B",
+          "swerv__v03/route/B",
+          "swerv__v04/route/B",
+          "swerv__v05/route/B",
+          "swerv__v06/route/B",
+          "swerv__v07/route/B",
+          "swerv__v08/route/B",
+          "swerv__v09/route/B",
+          "swerv__v10/route/B",
+          "tv80__v01/route/B",
+          "tv80__v02/route/B",
+          "tv80__v03/route/B",
+          "tv80__v04/route/B",
+          "tv80__v05/route/B",
+          "tv80__v06/route/B",
+          "tv80__v07/route/B",
+          "tv80__v08/route/B",
+          "tv80__v09/route/B",
+          "tv80__v10/route/B",
+          "uart__v01/route/B",
+          "uart__v02/route/B",
+          "uart__v03/route/B",
+          "uart__v04/route/B",
+          "uart__v05/route/B",
+          "uart__v06/route/B",
+          "uart__v07/route/B",
+          "uart__v08/route/B",
+          "uart__v09/route/B",
+          "uart__v10/route/B",
+          "usb_phy__v01/route/B",
+          "usb_phy__v02/route/B",
+          "usb_phy__v03/route/B",
+          "usb_phy__v04/route/B",
+          "usb_phy__v05/route/B",
+          "usb_phy__v06/route/B",
+          "usb_phy__v07/route/B",
+          "usb_phy__v08/route/B",
+          "usb_phy__v09/route/B",
+          "usb_phy__v10/route/B",
+          "vga_enh_top__v01/route/B",
+          "vga_enh_top__v02/route/B",
+          "vga_enh_top__v03/route/B",
+          "vga_enh_top__v04/route/B",
+          "vga_enh_top__v05/route/B",
+          "vga_enh_top__v06/route/B",
+          "vga_enh_top__v07/route/B",
+          "vga_enh_top__v08/route/B",
+          "vga_enh_top__v09/route/B",
+          "vga_enh_top__v10/route/B",
+          "wb_conmax__v01/route/B",
+          "wb_conmax__v02/route/B",
+          "wb_conmax__v03/route/B",
+          "wb_conmax__v04/route/B",
+          "wb_conmax__v05/route/B",
+          "wb_conmax__v06/route/B",
+          "wb_conmax__v07/route/B",
+          "wb_conmax__v08/route/B",
+          "wb_conmax__v09/route/B",
+          "wb_conmax__v10/route/B",
+          "wb_dma_top__v01/route/B",
+          "wb_dma_top__v02/route/B",
+          "wb_dma_top__v03/route/B",
+          "wb_dma_top__v04/route/B",
+          "wb_dma_top__v05/route/B",
+          "wb_dma_top__v06/route/B",
+          "wb_dma_top__v07/route/B",
+          "wb_dma_top__v08/route/B",
+          "wb_dma_top__v09/route/B",
+          "wb_dma_top__v10/route/B"
+        ],
+        "val": [
+          "i2c_verilog__v01/route/B",
+          "i2c_verilog__v02/route/B",
+          "i2c_verilog__v03/route/B",
+          "i2c_verilog__v04/route/B",
+          "i2c_verilog__v05/route/B",
+          "i2c_verilog__v06/route/B",
+          "i2c_verilog__v07/route/B",
+          "i2c_verilog__v08/route/B",
+          "i2c_verilog__v09/route/B",
+          "i2c_verilog__v10/route/B",
+          "pci__v01/route/B",
+          "pci__v02/route/B",
+          "pci__v03/route/B",
+          "pci__v04/route/B",
+          "pci__v05/route/B",
+          "pci__v06/route/B",
+          "pci__v07/route/B",
+          "pci__v08/route/B",
+          "pci__v09/route/B",
+          "pci__v10/route/B",
+          "spi_top__v01/route/B",
+          "spi_top__v02/route/B",
+          "spi_top__v03/route/B",
+          "spi_top__v04/route/B",
+          "spi_top__v05/route/B",
+          "spi_top__v06/route/B",
+          "spi_top__v07/route/B",
+          "spi_top__v08/route/B",
+          "spi_top__v09/route/B",
+          "spi_top__v10/route/B"
+        ],
+        "test": [
+          "des3_area__v01/route/B",
+          "des3_area__v02/route/B",
+          "des3_area__v03/route/B",
+          "des3_area__v04/route/B",
+          "des3_area__v05/route/B",
+          "des3_area__v06/route/B",
+          "des3_area__v07/route/B",
+          "des3_area__v08/route/B",
+          "des3_area__v09/route/B",
+          "des3_area__v10/route/B",
+          "tinyRocket__v01/route/B",
+          "tinyRocket__v02/route/B",
+          "tinyRocket__v03/route/B",
+          "tinyRocket__v04/route/B",
+          "tinyRocket__v05/route/B",
+          "tinyRocket__v06/route/B",
+          "tinyRocket__v07/route/B",
+          "tinyRocket__v08/route/B",
+          "tinyRocket__v09/route/B",
+          "tinyRocket__v10/route/B",
+          "usbf_top__v01/route/B",
+          "usbf_top__v02/route/B",
+          "usbf_top__v03/route/B",
+          "usbf_top__v04/route/B",
+          "usbf_top__v05/route/B",
+          "usbf_top__v06/route/B",
+          "usbf_top__v07/route/B",
+          "usbf_top__v08/route/B",
+          "usbf_top__v09/route/B",
+          "usbf_top__v10/route/B"
+        ]
+      },
+      "contract": "Train, validation, and test are pairwise disjoint by sample ID and design family."
+    },
+    "target_transform": {
+      "kind": "log1p_standard",
+      "mean": 0.23927931734840407,
+      "std": 0.09957777601291974,
+      "epsilon": 1e-12
+    },
+    "loss_weighting": null,
+    "best_epoch": 34,
+    "best_val_loss": 0.20365750255527545,
+    "checkpoint_metric": "loss",
+    "best_val_metric": 0.20365750255527545,
+    "test": {
+      "loss": 0.33434958765449463,
+      "mae": 0.08485997574640887,
+      "rmse": 0.10850975140368498,
+      "r2": -0.07046979144176091
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train": {
+          "loss": 0.7019723797248952,
+          "mae": 0.13804026388208418,
+          "rmse": 0.17591830343280973,
+          "r2": -0.875735373776251
+        },
+        "validation": {
+          "loss": 0.2454062267586198,
+          "mae": 0.06973022164323983,
+          "rmse": 0.08526221482399812,
+          "r2": -0.2092093223241147
+        }
+      },
+      {
+        "epoch": 2,
+        "train": {
+          "loss": 0.6016878738851472,
+          "mae": 0.1263515768534699,
+          "rmse": 0.15881465623887417,
+          "r2": -0.5287295850560751
+        },
+        "validation": {
+          "loss": 0.21189683177566582,
+          "mae": 0.06366066572379338,
+          "rmse": 0.0792928387391886,
+          "r2": -0.04581820888074528
+        }
+      },
+      {
+        "epoch": 3,
+        "train": {
+          "loss": 0.5634602070604904,
+          "mae": 0.121009494994574,
+          "rmse": 0.15360849715611255,
+          "r2": -0.4301447398670608
+        },
+        "validation": {
+          "loss": 0.21525114453865501,
+          "mae": 0.06429210779059967,
+          "rmse": 0.07986764076075917,
+          "r2": -0.061035655693574276
+        }
+      },
+      {
+        "epoch": 4,
+        "train": {
+          "loss": 0.5461728252027109,
+          "mae": 0.11873216035825353,
+          "rmse": 0.150693897190553,
+          "r2": -0.37638788673831347
+        },
+        "validation": {
+          "loss": 0.21967965637045125,
+          "mae": 0.06511210336714626,
+          "rmse": 0.08064079139398797,
+          "r2": -0.08167758257121727
+        }
+      },
+      {
+        "epoch": 5,
+        "train": {
+          "loss": 0.549533625690948,
+          "mae": 0.11919518045515852,
+          "rmse": 0.1512293243362681,
+          "r2": -0.3861860893380413
+        },
+        "validation": {
+          "loss": 0.21046889458949974,
+          "mae": 0.06338943914608886,
+          "rmse": 0.07905260169548774,
+          "r2": -0.039490684838055845
+        }
+      },
+      {
+        "epoch": 6,
+        "train": {
+          "loss": 0.5435700266527295,
+          "mae": 0.11826413247281162,
+          "rmse": 0.15056097659529594,
+          "r2": -0.3739608526734828
+        },
+        "validation": {
+          "loss": 0.20831988905550908,
+          "mae": 0.06297747188669847,
+          "rmse": 0.07869803086047944,
+          "r2": -0.0301868415575548
+        }
+      },
+      {
+        "epoch": 7,
+        "train": {
+          "loss": 0.5392476595325729,
+          "mae": 0.11762589993031061,
+          "rmse": 0.14999566660783759,
+          "r2": -0.3636626246775081
+        },
+        "validation": {
+          "loss": 0.21427819449729868,
+          "mae": 0.06411082344739906,
+          "rmse": 0.07969920351373685,
+          "r2": -0.056565022302596635
+        }
+      },
+      {
+        "epoch": 8,
+        "train": {
+          "loss": 0.5437071968246519,
+          "mae": 0.11887149709284928,
+          "rmse": 0.15170646123012024,
+          "r2": -0.39494687572016174
+        },
+        "validation": {
+          "loss": 0.21058137251433182,
+          "mae": 0.06341033346152859,
+          "rmse": 0.07907179770419553,
+          "r2": -0.039995576378403896
+        }
+      },
+      {
+        "epoch": 9,
+        "train": {
+          "loss": 0.6555886519064631,
+          "mae": 0.13470754993999304,
+          "rmse": 0.16571290880920328,
+          "r2": -0.6644171958275273
+        },
+        "validation": {
+          "loss": 0.2521793017907622,
+          "mae": 0.07091641002098159,
+          "rmse": 0.0864867491536795,
+          "r2": -0.24419202490698821
+        }
+      },
+      {
+        "epoch": 10,
+        "train": {
+          "loss": 0.6672649730974733,
+          "mae": 0.13561877699146316,
+          "rmse": 0.16801174094993515,
+          "r2": -0.7109163506484091
+        },
+        "validation": {
+          "loss": 0.2072447218630307,
+          "mae": 0.06276839334010195,
+          "rmse": 0.07852459584550263,
+          "r2": -0.025651185683642108
+        }
+      },
+      {
+        "epoch": 11,
+        "train": {
+          "loss": 0.5575986393755635,
+          "mae": 0.12015482226569384,
+          "rmse": 0.15284260052668094,
+          "r2": -0.4159188038117039
+        },
+        "validation": {
+          "loss": 0.2068799111498462,
+          "mae": 0.06269742776732523,
+          "rmse": 0.07846655085485996,
+          "r2": -0.024135433599890455
+        }
+      },
+      {
+        "epoch": 12,
+        "train": {
+          "loss": 0.5696301306628142,
+          "mae": 0.1220528684117268,
+          "rmse": 0.15402758404221897,
+          "r2": -0.43795905379657696
+        },
+        "validation": {
+          "loss": 0.2058735758856901,
+          "mae": 0.0624998458771707,
+          "rmse": 0.07830849461851803,
+          "r2": -0.02001372923258149
+        }
+      },
+      {
+        "epoch": 13,
+        "train": {
+          "loss": 0.5299942311373441,
+          "mae": 0.11629491012543483,
+          "rmse": 0.14865102968021818,
+          "r2": -0.3393230905375102
+        },
+        "validation": {
+          "loss": 0.20538589489055065,
+          "mae": 0.0624035819830329,
+          "rmse": 0.07823327278076399,
+          "r2": -0.018055053966683055
+        }
+      },
+      {
+        "epoch": 14,
+        "train": {
+          "loss": 0.5272527678832882,
+          "mae": 0.11587255880432316,
+          "rmse": 0.14830651655374044,
+          "r2": -0.3331222630011985
+        },
+        "validation": {
+          "loss": 0.20506300093240962,
+          "mae": 0.062338503934654316,
+          "rmse": 0.07818404328688516,
+          "r2": -0.016774203392524445
+        }
+      },
+      {
+        "epoch": 15,
+        "train": {
+          "loss": 0.5266512035961683,
+          "mae": 0.1157681837515814,
+          "rmse": 0.14825328218674913,
+          "r2": -0.33216539091579356
+        },
+        "validation": {
+          "loss": 0.20484132839136396,
+          "mae": 0.062294816961080135,
+          "rmse": 0.07815053528785001,
+          "r2": -0.015902855052251752
+        }
+      },
+      {
+        "epoch": 16,
+        "train": {
+          "loss": 0.5263564445029979,
+          "mae": 0.11571591471903565,
+          "rmse": 0.148228204751635,
+          "r2": -0.33171475042819787
+        },
+        "validation": {
+          "loss": 0.20480256147937628,
+          "mae": 0.062287106279384157,
+          "rmse": 0.07814470087601771,
+          "r2": -0.015751174085113506
+        }
+      },
+      {
+        "epoch": 17,
+        "train": {
+          "loss": 0.5258326332523664,
+          "mae": 0.11564108310770772,
+          "rmse": 0.14814742164119382,
+          "r2": -0.33026359955132434
+        },
+        "validation": {
+          "loss": 0.20488487069427885,
+          "mae": 0.06230345445514843,
+          "rmse": 0.07815709521330547,
+          "r2": -0.01607341118911587
+        }
+      },
+      {
+        "epoch": 18,
+        "train": {
+          "loss": 0.5261436246497018,
+          "mae": 0.11571150688968908,
+          "rmse": 0.14814136676741085,
+          "r2": -0.33015486443455466
+        },
+        "validation": {
+          "loss": 0.2050008275534897,
+          "mae": 0.062326322420766925,
+          "rmse": 0.07817461255120847,
+          "r2": -0.016528926990003745
+        }
+      },
+      {
+        "epoch": 19,
+        "train": {
+          "loss": 0.5290360702872704,
+          "mae": 0.1161554851821745,
+          "rmse": 0.14851541492728876,
+          "r2": -0.3368804687981575
+        },
+        "validation": {
+          "loss": 0.2055718466862119,
+          "mae": 0.06244065274110947,
+          "rmse": 0.07826180018965238,
+          "r2": -0.018797647670514284
+        }
+      },
+      {
+        "epoch": 20,
+        "train": {
+          "loss": 0.5431492546506623,
+          "mae": 0.11828833289599243,
+          "rmse": 0.1503074838555042,
+          "r2": -0.3693381953363888
+        },
+        "validation": {
+          "loss": 0.20383294454684467,
+          "mae": 0.062091032265441284,
+          "rmse": 0.07800153274324374,
+          "r2": -0.012032688170483308
+        }
+      },
+      {
+        "epoch": 21,
+        "train": {
+          "loss": 0.5339131122101904,
+          "mae": 0.11676992305526838,
+          "rmse": 0.1494089798053241,
+          "r2": -0.35301594059831976
+        },
+        "validation": {
+          "loss": 0.20558090525051284,
+          "mae": 0.06244242527335992,
+          "rmse": 0.07826321907939394,
+          "r2": -0.018834589694120885
+        }
+      },
+      {
+        "epoch": 22,
+        "train": {
+          "loss": 0.5425363873677134,
+          "mae": 0.1181249665719851,
+          "rmse": 0.15034219205410743,
+          "r2": -0.369970668825929
+        },
+        "validation": {
+          "loss": 0.21668953256054338,
+          "mae": 0.06456056117564118,
+          "rmse": 0.08011696880423484,
+          "r2": -0.06767060488615306
+        }
+      },
+      {
+        "epoch": 23,
+        "train": {
+          "loss": 0.5596068668538278,
+          "mae": 0.1205714692032827,
+          "rmse": 0.1526146126848299,
+          "r2": -0.4116978404211813
+        },
+        "validation": {
+          "loss": 0.20933851193201447,
+          "mae": 0.0631733556219661,
+          "rmse": 0.07886507032149097,
+          "r2": -0.03456470153448121
+        }
+      },
+      {
+        "epoch": 24,
+        "train": {
+          "loss": 0.5438169535310569,
+          "mae": 0.11851648824419052,
+          "rmse": 0.15003899574833016,
+          "r2": -0.36445057895509936
+        },
+        "validation": {
+          "loss": 0.20518487804467087,
+          "mae": 0.06236303869722896,
+          "rmse": 0.07820256221207787,
+          "r2": -0.017255933286110414
+        }
+      },
+      {
+        "epoch": 25,
+        "train": {
+          "loss": 0.5265404116655411,
+          "mae": 0.11578953976182443,
+          "rmse": 0.1481583662681941,
+          "r2": -0.33046015750071467
+        },
+        "validation": {
+          "loss": 0.20490855382644957,
+          "mae": 0.062308142174586426,
+          "rmse": 0.07816066445604498,
+          "r2": -0.016166216466616312
+        }
+      },
+      {
+        "epoch": 26,
+        "train": {
+          "loss": 0.5253691670979448,
+          "mae": 0.11557878525572778,
+          "rmse": 0.14806789927490766,
+          "r2": -0.3288358687640265
+        },
+        "validation": {
+          "loss": 0.20496299922032116,
+          "mae": 0.0623188807709325,
+          "rmse": 0.0781688920560776,
+          "r2": -0.016380161660011217
+        }
+      },
+      {
+        "epoch": 27,
+        "train": {
+          "loss": 0.5253989972835191,
+          "mae": 0.11559402673957694,
+          "rmse": 0.14805087060955996,
+          "r2": -0.3285302387087723
+        },
+        "validation": {
+          "loss": 0.20504370724098972,
+          "mae": 0.062334730116783324,
+          "rmse": 0.07818111105145265,
+          "r2": -0.016697938075134866
+        }
+      },
+      {
+        "epoch": 28,
+        "train": {
+          "loss": 0.5260834973721386,
+          "mae": 0.11570115206561303,
+          "rmse": 0.14813702380854385,
+          "r2": -0.3300768751016403
+        },
+        "validation": {
+          "loss": 0.20533331046714307,
+          "mae": 0.06239303233678572,
+          "rmse": 0.07822521585476541,
+          "r2": -0.017845374080487364
+        }
+      },
+      {
+        "epoch": 29,
+        "train": {
+          "loss": 0.532122170653079,
+          "mae": 0.11664749788383638,
+          "rmse": 0.14885736072428743,
+          "r2": -0.3430436933220895
+        },
+        "validation": {
+          "loss": 0.20472984154401888,
+          "mae": 0.06227258171456368,
+          "rmse": 0.07813376164740474,
+          "r2": -0.015466810425173616
+        }
+      },
+      {
+        "epoch": 30,
+        "train": {
+          "loss": 0.5350472388960734,
+          "mae": 0.11703165621289462,
+          "rmse": 0.1493714223661289,
+          "r2": -0.3523358017323144
+        },
+        "validation": {
+          "loss": 0.2053567664436136,
+          "mae": 0.06239774185765326,
+          "rmse": 0.07822880823084553,
+          "r2": -0.01793886228104813
+        }
+      },
+      {
+        "epoch": 31,
+        "train": {
+          "loss": 0.5463556464488879,
+          "mae": 0.11883878201883613,
+          "rmse": 0.1505450553936783,
+          "r2": -0.3736702866630379
+        },
+        "validation": {
+          "loss": 0.20457895777901397,
+          "mae": 0.062242226506564746,
+          "rmse": 0.07811119728021072,
+          "r2": -0.014880378723744814
+        }
+      },
+      {
+        "epoch": 32,
+        "train": {
+          "loss": 0.5432643007750937,
+          "mae": 0.11834558316909728,
+          "rmse": 0.15022088399091346,
+          "r2": -0.3677607577006612
+        },
+        "validation": {
+          "loss": 0.2037798105555038,
+          "mae": 0.06208021997475103,
+          "rmse": 0.07799384842561533,
+          "r2": -0.011833297279352228
+        }
+      },
+      {
+        "epoch": 33,
+        "train": {
+          "loss": 0.5404704588853545,
+          "mae": 0.1177919275179387,
+          "rmse": 0.15016795754016568,
+          "r2": -0.3667971370914205
+        },
+        "validation": {
+          "loss": 0.2082040870406681,
+          "mae": 0.06295501046970885,
+          "rmse": 0.07867929423155534,
+          "r2": -0.029696360903853636
+        }
+      },
+      {
+        "epoch": 34,
+        "train": {
+          "loss": 0.5640020406815338,
+          "mae": 0.12136453885727287,
+          "rmse": 0.15298076918356004,
+          "r2": -0.41847992257459365
+        },
+        "validation": {
+          "loss": 0.20365750255527545,
+          "mae": 0.06205511929484334,
+          "rmse": 0.07797627690675568,
+          "r2": -0.011377429401911554
+        }
+      },
+      {
+        "epoch": 35,
+        "train": {
+          "loss": 0.5302602614602601,
+          "mae": 0.11629817397403282,
+          "rmse": 0.14876985266818135,
+          "r2": -0.34146510026844124
+        },
+        "validation": {
+          "loss": 0.20410475589657825,
+          "mae": 0.062145613375043096,
+          "rmse": 0.07804108786799592,
+          "r2": -0.01305936618170378
+        }
+      },
+      {
+        "epoch": 36,
+        "train": {
+          "loss": 0.5255573114248512,
+          "mae": 0.1155904223790591,
+          "rmse": 0.1481253125281774,
+          "r2": -0.3298665794299631
+        },
+        "validation": {
+          "loss": 0.20469792429122163,
+          "mae": 0.06226617459990863,
+          "rmse": 0.0781289909445628,
+          "r2": -0.01534280916378683
+        }
+      },
+      {
+        "epoch": 37,
+        "train": {
+          "loss": 0.5247659220889553,
+          "mae": 0.11548683187772722,
+          "rmse": 0.14798658196164277,
+          "r2": -0.32737670454044276
+        },
+        "validation": {
+          "loss": 0.2048491474633328,
+          "mae": 0.062296372035618996,
+          "rmse": 0.078151712752184,
+          "r2": -0.015933467725228967
+        }
+      },
+      {
+        "epoch": 38,
+        "train": {
+          "loss": 0.5244160686301006,
+          "mae": 0.11544097475600157,
+          "rmse": 0.1479247585767085,
+          "r2": -0.3262678772612997
+        },
+        "validation": {
+          "loss": 0.2049446213293424,
+          "mae": 0.0623152618104763,
+          "rmse": 0.07816611102013216,
+          "r2": -0.01630784287927134
+        }
+      },
+      {
+        "epoch": 39,
+        "train": {
+          "loss": 0.5245927023311582,
+          "mae": 0.1154763472682529,
+          "rmse": 0.14793229371280192,
+          "r2": -0.32640299816438256
+        },
+        "validation": {
+          "loss": 0.20567174050983933,
+          "mae": 0.06246037094026936,
+          "rmse": 0.07827721099703695,
+          "r2": -0.019198917257820636
+        }
+      },
+      {
+        "epoch": 40,
+        "train": {
+          "loss": 0.5336257315265134,
+          "mae": 0.11691622286379962,
+          "rmse": 0.14894785535383362,
+          "r2": -0.34467713871141226
+        },
+        "validation": {
+          "loss": 0.20671249583008477,
+          "mae": 0.0626649065786547,
+          "rmse": 0.07844001566572335,
+          "r2": -0.023442882898524253
+        }
+      },
+      {
+        "epoch": 41,
+        "train": {
+          "loss": 0.5495551443668004,
+          "mae": 0.1193008963476133,
+          "rmse": 0.15098012843203004,
+          "r2": -0.3816215342043707
+        },
+        "validation": {
+          "loss": 0.20546906052468583,
+          "mae": 0.06242020941011017,
+          "rmse": 0.0782460117555337,
+          "r2": -0.018386627300528424
+        }
+      },
+      {
+        "epoch": 42,
+        "train": {
+          "loss": 0.5567124735101149,
+          "mae": 0.12040288157386106,
+          "rmse": 0.15166581500622897,
+          "r2": -0.3941994886025175
+        },
+        "validation": {
+          "loss": 0.2048358938474484,
+          "mae": 0.06229374461131302,
+          "rmse": 0.07814970507923596,
+          "r2": -0.01588127089244229
+        }
+      },
+      {
+        "epoch": 43,
+        "train": {
+          "loss": 0.5346182535401972,
+          "mae": 0.11704163854782307,
+          "rmse": 0.14912781417810186,
+          "r2": -0.3479283798978421
+        },
+        "validation": {
+          "loss": 0.20403888922700106,
+          "mae": 0.062132497519765954,
+          "rmse": 0.078031462392337,
+          "r2": -0.012809483019168955
+        }
+      },
+      {
+        "epoch": 44,
+        "train": {
+          "loss": 0.5258013837046515,
+          "mae": 0.1156103774286447,
+          "rmse": 0.14819103633976183,
+          "r2": -0.33104697580843734
+        },
+        "validation": {
+          "loss": 0.20463402704743874,
+          "mae": 0.062253329489727706,
+          "rmse": 0.0781194256493717,
+          "r2": -0.01509420850860499
+        }
+      },
+      {
+        "epoch": 45,
+        "train": {
+          "loss": 0.5255826900254615,
+          "mae": 0.1156103651207099,
+          "rmse": 0.1480986715896903,
+          "r2": -0.32938825864712284
+        },
+        "validation": {
+          "loss": 0.20469269510433621,
+          "mae": 0.062265125024756576,
+          "rmse": 0.07812820905604738,
+          "r2": -0.015322486850657402
+        }
+      },
+      {
+        "epoch": 46,
+        "train": {
+          "loss": 0.524855614130344,
+          "mae": 0.11550332939746712,
+          "rmse": 0.14799293573351927,
+          "r2": -0.3274906882505302
+        },
+        "validation": {
+          "loss": 0.20490035124052938,
+          "mae": 0.06230652035455575,
+          "rmse": 0.07815942733893823,
+          "r2": -0.016134049220605684
+        }
+      },
+      {
+        "epoch": 47,
+        "train": {
+          "loss": 0.5249763882556944,
+          "mae": 0.11553441878851743,
+          "rmse": 0.14798456634687313,
+          "r2": -0.3273405463721182
+        },
+        "validation": {
+          "loss": 0.2051517781688476,
+          "mae": 0.06235631331837891,
+          "rmse": 0.07819752073551764,
+          "r2": -0.01712477884589747
+        }
+      },
+      {
+        "epoch": 48,
+        "train": {
+          "loss": 0.5292016863996369,
+          "mae": 0.11618709661947776,
+          "rmse": 0.1485244101214088,
+          "r2": -0.3370424164790049
+        },
+        "validation": {
+          "loss": 0.20504305013697588,
+          "mae": 0.06233459913318653,
+          "rmse": 0.07818101487517032,
+          "r2": -0.01669543664821793
+        }
+      },
+      {
+        "epoch": 49,
+        "train": {
+          "loss": 0.5382236314544486,
+          "mae": 0.11763864993386479,
+          "rmse": 0.14945770409883835,
+          "r2": -0.35389855816764704
+        },
+        "validation": {
+          "loss": 0.2046338911008299,
+          "mae": 0.062253295197355764,
+          "rmse": 0.07811941349895393,
+          "r2": -0.015093892740340342
+        }
+      },
+      {
+        "epoch": 50,
+        "train": {
+          "loss": 0.5397413611740455,
+          "mae": 0.11783448149987094,
+          "rmse": 0.14973162061296882,
+          "r2": -0.35886578305030636
+        },
+        "validation": {
+          "loss": 0.20408340214333,
+          "mae": 0.0621413692245023,
+          "rmse": 0.0780379675496618,
+          "r2": -0.01297835745653897
+        }
+      }
+    ],
+    "seconds": 3740.200717332773,
+    "peak_gpu_memory_mib": {
+      "allocated": 7756.30712890625,
+      "reserved": 8288.0
+    }
+  }
+}
